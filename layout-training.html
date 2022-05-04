@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .flex-center-center{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #big-font{
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      /* display: flex;
+      align-items: center;
+      justify-content: center; */
+    }
+    #big-font>div{
+      width: 60vh;
+      height: 40vh;
+      background-color: #2c2c2c;
+      /* border: 1px solid #fff; */
+      transform: rotate(20deg);
+      border-radius: 100px;
+    }
+    #big-font>div:nth-child(1){
+      position: absolute;
+      filter: blur(20px);
+    }
+    #big-font>div:nth-child(2){
+      opacity: 0.7;
+      position: relative;
+      top: -10vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #big-font>div:nth-child(2)>div{
+      font-size: 5rem;
+      font-weight: 900;
+      transform: rotate(-20deg);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- 띄워주는 부분은 겹쳐서 구현, 바탕은 부분은 js로 구현해보기 -->
+  <div id="root">
+    <div id="bg-contents">
+      <ul>
+        <!-- 자식요소로 6개의 아이템을 만들어 주자 -->
+        <li></li>
+      </ul>
+      <div>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem numquam magni corrupti atque esse praesentium saepe modi, hic temporibus eum perferendis tenetur quasi eius ad consectetur alias maiores laborum aliquid?</div>
+      </div>
+      <div>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia numquam doloribus eligendi quaerat dolor et architecto obcaecati ullam inventore sapiente eos fuga quidem, assumenda, ducimus tempore. Explicabo minus nisi ratione!</div>
+      </div>
+      <div>
+        <div>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt nihil voluptatem neque porro cumque? At autem veniam incidunt sunt, adipisci voluptates cumque, corporis modi deserunt laudantium iure neque cupiditate tenetur.</div>
+      </div>
+    </div>
+    <div id="big-font" class="flex-center-center">
+      <div></div>
+      <div>
+        <div>BIGFONT</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 바탕의 컨텐츠
+    document.body.style.margin = 0;
+    document.body.style.padding = 0;
+    document.body.style.boxSizing = 'border-box';
+    console.log(document.body);
+
+    // get #root
+    const root = document.getElementById('root');
+    console.log(root);
+    let hun = 100;
+    // root style
+    root.style.width = hun+'vw'; 
+    root.style.height = hun+'vh';
+    // root.style.backgroundColor = '#c4c4c4';
+
+    // get #bg-contents
+    console.log(root.children);
+    const bgCon = root.children[0];
+    // bgCon style
+    bgCon.style.width = hun+'vw';
+    bgCon.style.height = hun+'vh';
+    bgCon.style.border = '1px solid black';
+    // grid로 자식요소 비율 나눠주기
+    bgCon.style.display = 'grid';
+    bgCon.style.gridTemplateColumns = '1fr 4fr 4fr 4fr';
+    console.log(bgCon);
+
+    // bgCon의 자식요소 식별
+    console.log(bgCon.children);
+    const bgConChild = bgCon.children;
+    console.log(bgConChild);
+    // bgConChild style
+
+    // div 1, 2, 3
+    bgConChild[1].setAttribute('style','background-color: #d6d6d6; align-items: flex-start;');
+    bgConChild[2].setAttribute('style','background-color: #c4c4c4; align-items: flex-end;');
+    bgConChild[3].setAttribute('style','background-color: #414141; align-items: center;');
+
+    // div 안의 흰색 글씨로 바꿔주는 부분
+    for(let i = 1; i < bgConChild.length; i++){
+      bgConChild[i].style.color = '#fff';
+      // div의 자식요소의 위치 바꾸기
+      bgConChild[i].style.display = 'flex';
+      bgConChild[i].style.justifyContent = 'center';
+      console.log(bgConChild[i]);
+
+      // bgConchild 중 div의 자식요소 div 식별
+      console.log(bgConChild[i].children);
+      const text = bgConChild[i].children[0];
+      console.log(text);
+      text.style.width = '90%';
+      // console.log('here');
+      // console.log(bgConChild[i]);
+    }
+    // bgConChild의 자식요소마다 다르게 적용할 style -> padding
+    bgConChild[1].children[0].style.paddingTop = hun/5+'px';
+    bgConChild[2].children[0].style.paddingBottom = hun/5+'px';
+
+    let num = 0;
+    // ul요소의 자식요소 li 생성
+    // ul
+    bgConChild[0].setAttribute('style','background-color: #e5e5e5; margin: 0; display: flex; list-style-type: none; flex-direction: column; align-items: center; row-gap: 1vh;');
+    // ul>li
+    // console.log(bgConChild[0].children);
+    // li를 6개를 만들어줘야 함
+    for(let i = 0; i < 6; i++){
+      // num++;
+      // console.log(num);
+      // ul의 자식요소로 li 만들어주기
+      const square = document.createElement('li');
+      const ul = bgConChild[0];
+      ul.appendChild(square);
+      ul.style.listStyleType = 'none';
+      square.style.width = hun/20+'vw';
+      square.style.height = hun/20+'vw';
+      square.style.backgroundColor = '#c4c4c4';
+    }
+  </script>
+</body>
+</html>
