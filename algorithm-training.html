@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    // get #root
+    const root = document.getElementById('root');
+    console.log(root);
+    // root style
+    // root.style.display = 'flex';
+
+    // button을 생성
+    const clickBtn = document.createElement('button');
+    // root의 자식요소로 추가해준다
+    root.appendChild(clickBtn);
+    // clickBtn A라는 문자열을 넣어준다
+    clickBtn.innerHTML = 'A';
+
+    // A버튼을 클릭하면 
+    // let clickValue = 0;
+    clickBtn.addEventListener('click', function(){
+      // console.log('clicked');
+      // clickValue++;
+      // 콘솔창에 hello란 문자열이 55번 출력되도록 알고리즘을 만든다 -> 한번에 출력
+      for(let i = 0; i<55; i++){
+        const textBox = document.createElement('p');
+        console.log(i);
+        console.log(textBox);
+        root.appendChild(textBox);
+        // hello-$
+        textBox.innerHTML = 'hello';
+        const textBoxArr = ['h', 'e', 'l', 'l', 'o', 'i'];
+        // hello라는 문자열의 h만 뽑아온다
+        // textBox.innerHTML = ['h', 'e', 'l', 'l', 'o'];
+        if(textBox.innerHTML === 'hello'){
+          console.log('h로 바꿔줘');
+          // !문자열도 배열과 같은 구조라는 것
+          console.dir(textBox.innerHTML[0]);
+          textBox.innerHTML = textBox.innerHTML[0];
+        }
+        if(textBox.innerHTML === textBoxArr[0]){
+          // 이미 위의 조건문에서 h를 innerHTML에 넣었기 때문
+          console.log(textBox.innerHTML);
+          console.log(textBox.innerHTML[1]);  //  undefined
+          textBox.innerHTML = textBox.innerHTML[0]+textBoxArr[textBoxArr.length-1];  
+          // !문자열도 배열과 같은 구조라는 것
+          // console.dir(textBox.innerHTML[0]);
+          // textBox.innerHTML = textBox.innerHTML[0];
+        }
+      }
+    });
+    
+    
+
+  </script>
+</body>
+</html>
